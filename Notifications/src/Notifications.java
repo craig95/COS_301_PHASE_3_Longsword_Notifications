@@ -1,7 +1,10 @@
 import java.util.List;
+import android.app.Notification;
+import android.app.NotificationManager;
 
 public class Notifications
 {
+	
     public class User
     {
 
@@ -9,16 +12,30 @@ public class Notifications
     /**
      * param String notification - The notification we wish to push 
      */
-	public void PushNotificationToAll (String notification)
+	public boolean PushNotificationToAll (String notification)
 	{
+        try{
+				
+		}catch(Exception e){
+	        return false; //Return false if error occurs whilst pushing notification
+	    }
+			
+	    return true; //Return true if no errors occured whilst pushing notification
 	}
 
 	/**
      * param String notification - The notification we wish to push 
      * param List<User> users - The users we want to send the notification to 
      */
-	public void PushTargetedNotification (List<User> users, String notification)
+	public boolean PushTargetedNotification (List<User> users, String notification)
 	{
+		try{
+				
+		}catch(Exception e){
+		    return false; //Return false if error occurs whilst pushing notification
+	    }
+			
+	    return true; //Return true if no errors occured whilst pushing notification
 	}
 
 	/**
