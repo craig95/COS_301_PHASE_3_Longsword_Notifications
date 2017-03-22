@@ -1,10 +1,17 @@
+import java.util.List;
+
 public class Notifications
 {
+    public class User
+    {
+
+    }
+
 	public void PushNotificationToAll (String notification)
 	{
 	}
-	
-	public void PushTargetedNotification (String notification)
+
+	public void PushTargetedNotification (List<User> users, String notification)
 	{
 	}
 
@@ -12,7 +19,7 @@ public class Notifications
 	{
 	}
 
-	public void SendTargetedEmail(String notification)
+	public void SendTargetedEmail(List<User> users, String notification)
 	{
 	}
 
@@ -20,7 +27,7 @@ public class Notifications
 	{
 	}
 
-	public void SendTargetedSms (String notification)
+	public void SendTargetedSms (List<User> users, String notification)
 	{
-	}		
+	}
 }
