@@ -79,7 +79,6 @@ public class Notifications
         * }
         *
         * */
-
 	}
 
 	/**
@@ -88,5 +87,18 @@ public class Notifications
      */
 	public void SendTargetedSms (List<User> users, String notification)
 	{
+	    // As explained above
+        // An example of how we would implement this in our system
+        /*
+        * for (int j = 0; j < Users.size(); j++)
+        * {
+        *   Message message = Message.creator(
+        *       new PhoneNumber(users.get(j).getCellPhoneNumber,  // To number
+        *       new PhoneNumber("+15559994321"),  // From number
+        *       notification                   // SMS body
+        *   ).create();
+        * }
+        *
+        * */
 	}
 }
