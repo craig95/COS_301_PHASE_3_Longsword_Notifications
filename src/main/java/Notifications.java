@@ -59,7 +59,7 @@ public class Notifications
     /**
      * param String notification - The notification we wish to send via sms
      */
-    public void SendSmsToAll (String notification)
+    public boolean SendSmsToAll (String notification)
     {
 
         // For the SMS feature we decided www.twilio.com offers a simple API. This would allow us to sms our users.
@@ -72,6 +72,7 @@ public class Notifications
         * */
 
         //The code below is an example of the system
+        Try{
         /*
         * String accountSid = "ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
         * String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/account
@@ -99,16 +100,21 @@ public class Notifications
         * }
         *
         * */
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 
     /**
      * param String notification - The notification we wish to send via sms
      * param List<User> users - The users we want to send the notification to
      */
-    public void SendTargetedSms (List<User> users, String notification)
+    public boolean SendTargetedSms (List<User> users, String notification)
     {
         // As explained above
         // An example of how we would implement this in our system
+        Try{
         /*
         * for (int j = 0; j < Users.size(); j++)
         * {
@@ -120,5 +126,9 @@ public class Notifications
         * }
         *
         * */
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 }
