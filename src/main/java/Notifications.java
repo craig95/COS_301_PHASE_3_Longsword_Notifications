@@ -2,8 +2,8 @@
  * Created by fred on 2017/03/23.
  */
 import java.util.List;
-import android.app.Notification;
-import android.app.NotificationManager;
+//import android.app.Notification;
+//import android.app.NotificationManager;
 
 public class Notifications
 {
