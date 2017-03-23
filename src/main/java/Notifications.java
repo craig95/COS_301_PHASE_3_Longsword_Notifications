@@ -221,6 +221,7 @@ public class Notifications
         * */
 
         //The code below is an example of the system
+        try{
         /*
         * String accountSid = "ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
         * String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/account
@@ -248,6 +249,10 @@ public class Notifications
         * }
         *
         * */
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
 
     /**
@@ -258,6 +263,7 @@ public class Notifications
     {
         // As explained above
         // An example of how we would implement this in our system
+        try{
         /*
         * for (int j = 0; j < Users.size(); j++)
         * {
@@ -269,11 +275,14 @@ public class Notifications
         * }
         *
         * */
-        if (notification == null){
+          if (notification == null){
+              return false;
+          }
+          else{
+              return true;
+          }
+        }catch(Exception e){
             return false;
-        }
-        else{
-            return true;
         }
     }
 }
