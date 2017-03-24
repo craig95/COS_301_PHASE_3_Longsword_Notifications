@@ -5,8 +5,12 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-//import android.app.Notification;
-//import android.app.NotificationManager;
+/*import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
+import android.view.View;*/
 /*
 import java.util.Properties;
 
@@ -19,7 +23,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 */
 
-public class Notifications
+public class Notifications extends ActionBarActivity
 {
 
     public class User{
