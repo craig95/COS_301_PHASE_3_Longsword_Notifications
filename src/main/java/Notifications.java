@@ -162,7 +162,12 @@ public class Notifications
     {
         try{
             //Push Notifcation to current user in list
-            //Use googles firebase if needed
+             /* NotificationManager NM;
+                NM=(NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                Notification notify = new Notification(android.R.drawable.stat_notify_more,"NEW EVENT,System.currentTimeMillis());
+                PendingIntent pending = PendingIntent.getActivity(getApplicationContext(), 0, new Intent(),0);
+                notify.setLatestEventInfo(getApplicationContext(), subject, notification, body,pending);
+                NM.notify(0, notify);	*/
         }catch(Exception e){
             return false; //Return false if error occurs whilst pushing notification
         }
