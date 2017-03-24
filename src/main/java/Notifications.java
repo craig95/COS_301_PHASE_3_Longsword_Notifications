@@ -95,6 +95,7 @@ public class Notifications
                 public void add(int index, String element) {
 
                 }
+                
 
                 public String remove(int index) {
                     return null;
@@ -160,7 +161,8 @@ public class Notifications
     public boolean PushNotificationToAll (String notification)
     {
         try{
-
+            //Push Notifcation to current user in list
+            //Use googles firebase if needed
         }catch(Exception e){
             return false; //Return false if error occurs whilst pushing notification
         }
@@ -175,7 +177,10 @@ public class Notifications
     public boolean PushTargetedNotification (List<User> users, String notification)
     {
         try{
-
+            for(int i = 0; i < users.length; i++){
+                //Push Notifcation to current user in list
+                //Use googles firebase if needed
+            }
         }catch(Exception e){
             return false; //Return false if error occurs whilst pushing notification
         }
