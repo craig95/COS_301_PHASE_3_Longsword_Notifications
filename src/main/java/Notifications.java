@@ -209,7 +209,7 @@ public class Notifications extends ActionBarActivity
             List<User> users = null;
 
             String from = "longswordNotification@gmail.com";//change accordingly
-            final String username = "tshepo";//change accordingly
+            final String username = "longswordNotification@gmail.com";//change accordingly
             final String password = "longsword";//change accordingly
 
             //email through relay.jangosmtp.net
