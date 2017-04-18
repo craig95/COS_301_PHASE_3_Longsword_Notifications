@@ -200,8 +200,8 @@ public class Notifications extends ActionBarActivity
     /**
      * param String notification - The notification we wish to send via email
      */
-    public boolean SendEmailToAll(String notification) {
-        if (notification == "") {
+    public String SendEmailToAll(String notification) {
+        /*if (notification == "") {
             return false;
         } else {
 
@@ -267,76 +267,62 @@ public class Notifications extends ActionBarActivity
                 return true;
             }
         }
-        return false;
+        return false;*/
+        return "";
     }
 
     /**
      * param String notification - The notification we wish to send via email
      * param List<User> users - The users we want to send the notification to
      */
-    public boolean SendTargetedEmail(List<User> users, String notification) {
+    public String SendTargetedEmail(String email, String subject, String body) {
 
-        if (users.size() < 1) {
-            if (notification != "") {
+        String to = email;//"xyz@gmail.com";
+        String from = "longswordNotification@gmail.com";
+        final String username = "longswordNotification";
+        final String password = "longsword";
 
-                for (int i = 0; i < users.size(); i++) {
+        //Email through relay.jangosmtp.net
+        String host = "smtp.gmail.com";
 
-                    // Recipient's email ID will be set to email of each user in system
-                    User n = users.get(i);
-                    String to = n.userEmailAddresses.get(i);//"xyz@gmail.com";//change accordingly
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
 
-                    // Sender's email ID needs to be mentioned
-                    String from = "longswordNotification@gmail.com";//change accordingly
-                    final String username = "abc";//change accordingly
-                    final String password = "notify";//change accordingly
-
-                    // Assuming you are sending email through relay.jangosmtp.net
-                    String host = "smtp.gmail.com";
-
-                    Properties props = new Properties();
-                    props.put("mail.smtp.auth", "true");
-                    props.put("mail.smtp.starttls.enable", "true");
-                    props.put("mail.smtp.host", host);
-                    props.put("mail.smtp.port", "587");
-
-                    // Get the Session object.
-                    Session session = Session.getInstance(props,
-                            new javax.mail.Authenticator() {
-                                protected PasswordAuthentication getPasswordAuthentication() {
-                                    return new PasswordAuthentication(username, password);
-                                }
-                            });
-
-                    try {
-
-                        Message message = new MimeMessage(session);
-
-                        // Set From: header field of the header.
-                        message.setFrom(new InternetAddress(from));
-
-                        // Set To: header field of the header.
-                        message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
-
-                        // Set Subject: header field
-                        message.setSubject("Testing Email");
-
-                        //set message to passed message
-                        message.setText(notification);
-
-                        // Send message
-                        Transport.send(message);
-
-                        System.out.println("Sent message successfully....");
-                    } catch (MessagingException e) {
-                        throw new RuntimeException(e);
-
+        // Get the Session object.
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
                     }
-                }
-                //sent to everyone
-                return true;
-            }
+                });
+
+        try {
+
+            Message message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+
+            // Set Subject: header field
+            message.setSubject(subject);
+
+            //set message to passed message
+            message.setText(body);
+
+            // Send message
+            Transport.send(message);
+
+            return "{'Success':'true', 'Error':'None'";
+        } catch (MessagingException e) {
+
+            return "{'Success':'true', 'Error':"+ e + "}";
         }
-        return false;
     }
 
     /**
