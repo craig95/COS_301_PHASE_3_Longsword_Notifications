@@ -7,24 +7,33 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * This class is used to handle all the interactions between the notification server and the android client
+ *
+ * Each user will have a text file where notifications are place
+ * and when they have accessed these notifications they will delete the text file by calling the delete function
+ */
 public class pushNotificationServer
 {
     pushNotificationServer()
     {
     }
 
+    /**
+     * To send a notification to multiple users
+     * @param notification The notification that needs to be sent
+     * @param users The list of users the notification needs to be sent to
+     */
     public void sendNotification(String notification, User users[])
     {
         try
         {
-            // send your parameters to your site
             for (int j = 0; j < users.length; j++)
             {
                 // open a connection to the site
                 URL url = new URL("http://www.unhinged.co.za/Demo/COS301/pushNotificationServer.php");
                 URLConnection con = url.openConnection();
 
-                // activate the output
                 con.setDoOutput(true);
                 PrintStream ps = new PrintStream(con.getOutputStream());
 
@@ -34,9 +43,6 @@ public class pushNotificationServer
                 // Add the notification to the request
                 ps.print("&notification=" + notification + "#END#");
 
-                // Add the user IDs to the request
-                //ps.print("&user" + j + "=" + users[j].getID());
-
                 // we have to get the input stream in order to actually send the request
                 con.getInputStream();
 
@@ -44,25 +50,25 @@ public class pushNotificationServer
                 ps.close();
             }
 
-
         } catch (Exception e)
         {
             System.out.println(e);
         }
-
     }
 
+    /**
+     * To send a notification to a single user
+     * @param notification The notification that needs to be sent
+     * @param user The list of users the notification needs to be sent to
+     */
     public void sendNotification(String notification, User user)
     {
         try
         {
-            // send your parameters to your site
             // open a connection to the site
-
             URL url = new URL("http://www.unhinged.co.za/Demo/COS301/pushNotificationServer.php");
             URLConnection con = url.openConnection();
 
-            // activate the output
             con.setDoOutput(true);
             PrintStream ps = new PrintStream(con.getOutputStream());
 
@@ -71,9 +77,6 @@ public class pushNotificationServer
 
             // Add the notification to the request
             ps.print("&notification=" + notification + "#END#");
-
-            // Add the user IDs to the request
-            //ps.print("&user" + j + "=" + users[j].getID());
 
             // we have to get the input stream in order to actually send the request
             con.getInputStream();
@@ -85,9 +88,13 @@ public class pushNotificationServer
         {
             System.out.println(e);
         }
-
     }
 
+    /**
+     * To check for notifications
+     * @param user The user we need to check for
+     * @return boolean
+     */
     public boolean isThereNotification(User user)
     {
         try
@@ -111,6 +118,10 @@ public class pushNotificationServer
         return false;
     }
 
+    /**
+     * Just to print all the notifications for a user to the console
+     * @param user
+     */
     public void printNotifications(User user)
     {
         try
@@ -131,6 +142,11 @@ public class pushNotificationServer
         }
     }
 
+    /**
+     * Gets all the notifications and returns them as a string[]
+     * @param user The user we have to check for
+     * @return The notifications as an String[]
+     */
     public String[] getNotifications(User user)
     {
         try
@@ -164,29 +180,27 @@ public class pushNotificationServer
         return null;
     }
 
+    /**
+     * A function to delete the text files for all the users when they're done
+     * @param users
+     */
     public void deleteNotifications(User users[])
     {
         try
         {
-            // send your parameters to your site
             for (int j = 0; j < users.length; j++)
             {
                 // open a connection to the site
                 URL url = new URL("http://www.unhinged.co.za/Demo/COS301/pushNotificationServer.php");
                 URLConnection con = url.openConnection();
-
-                // activate the output
                 con.setDoOutput(true);
                 PrintStream ps = new PrintStream(con.getOutputStream());
 
                 // Add the filename to the request
                 ps.print("&filename=notification" + users[j].getID() + ".txt");
 
-                // Add the notification to the request
+                // Tell the server to delete by adding this to the request
                 ps.print("&deleteFile=true");
-
-                // Add the user IDs to the request
-                //ps.print("&user" + j + "=" + users[j].getID());
 
                 // we have to get the input stream in order to actually send the request
                 con.getInputStream();
@@ -195,41 +209,37 @@ public class pushNotificationServer
                 ps.close();
             }
 
-
         } catch (Exception e)
         {
             System.out.println(e);
         }
     }
 
+    /**
+     * A function to delete the text files for all the user when he/she are done
+     * @param user
+     */
     public void deleteNotification(User user)
     {
         try
         {
-            // send your parameters to your site
             // open a connection to the site
             URL url = new URL("http://www.unhinged.co.za/Demo/COS301/pushNotificationServer.php");
             URLConnection con = url.openConnection();
-
-            // activate the output
             con.setDoOutput(true);
             PrintStream ps = new PrintStream(con.getOutputStream());
 
             // Add the filename to the request
             ps.print("&filename=notification" + user.getID() + ".txt");
 
-            // Add the notification to the request
+            // Tell the server to delete by adding this to the request
             ps.print("&deleteFile=true");
-
-            // Add the user IDs to the request
-            //ps.print("&user" + j + "=" + users[j].getID());
 
             // we have to get the input stream in order to actually send the request
             con.getInputStream();
 
             // close the print stream
             ps.close();
-
 
         } catch (Exception e)
         {
