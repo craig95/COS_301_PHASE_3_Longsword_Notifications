@@ -1,6 +1,9 @@
 /**
  * Created by Kyle on 4/19/2017.
  */
+/**
+ *  A dummmy class used for testing
+ */
 public class User
 {
     private int ID = 0;
