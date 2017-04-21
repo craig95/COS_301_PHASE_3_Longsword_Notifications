@@ -26,29 +26,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //Run all netwoking tasks on a new thread
                 new Thread(new Runnable(){
 
                     public void run(){
-                        User user = new User(1235);
-                        pushNotificationServer pushNotificationServer = new pushNotificationServer();
+                        User user = new User(1235); //Created dummy user for testing purposes (Value can be changed in order to switch users)
+                        pushNotificationServer pushNotificationServer = new pushNotificationServer(); //Create a new server object
 
+                        //Check if there are any outstanding notifiactions
                         if(pushNotificationServer.isThereNotification(user)) {
                             String[] notifications = pushNotificationServer.getNotifications(user);
-
                             for (int j = 0; j < notifications.length; j++) {
                                 CheckNotifications(notifications[j], j);
-
                             }
-                            pushNotificationServer.deleteNotification(user);
+                            pushNotificationServer.deleteNotification(user); //Delete notification once sent through to preserve space
                         }
-
                         final String text = (pushNotificationServer.isThereNotification(user) + "");
 
-
+                        //Switch back to main thread
                         runOnUiThread(new Runnable(){
                             public void run(){
                                 if(text.equals("true"))
-                                    t1.setText("New Notifications Recieved"); // My TextFile has 3 lines
+                                    t1.setText("New Notifications Recieved"); 
                                 else
                                     t1.setText("No New notifications Recieved");
                             }
@@ -60,18 +59,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //Display pending notifications to the client
     private void CheckNotifications(String message, int NotificationNo) {
+        //Construct Notification
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("NavUP")
                         .setContentText(message);
 
+        //Create and set intent to send notification
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
 
+        //Send Notification through to the notification manager
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(NotificationNo, builder.build());
     }
