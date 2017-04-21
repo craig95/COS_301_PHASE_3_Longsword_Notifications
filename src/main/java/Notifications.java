@@ -200,75 +200,64 @@ public class Notifications extends ActionBarActivity
     /**
      * param String notification - The notification we wish to send via email
      */
-    public String SendEmailToAll(String notification) {
-        /*if (notification == "") {
-            return false;
-        } else {
+    public String SendEmailToAll(List<String> emails, String subject, String body) {
 
-            //Query to get all users on the system
-            List<User> users = null;
-
-            String from = "longswordNotification@gmail.com";//change accordingly
-            final String username = "longswordNotification@gmail.com";//change accordingly
-            final String password = "longsword";//change accordingly
-
-            //email through relay.jangosmtp.net
-            String host = "smtp.gmail.com";
-
-            Properties props = new Properties();
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-            props.put("mail.smtp.host", host);
-            props.put("mail.smtp.port", "587");
-
-            // Get the Session object.
-            Session session = Session.getInstance(props,
-                    new javax.mail.Authenticator() {
-                        protected PasswordAuthentication getPasswordAuthentication() {
-                            return new PasswordAuthentication(username, password);
-                        }
-                    });
-
-
-
-            for (int i = 0; i < users.size(); i++) {
-
-                //Recipient's email ID will be set to email of each user in system
-                User n = users.get(i);
-                String to = n.userEmailAddresses.get(i);//"xyz@gmail.com";//change accordingly
-
-                //Sender's email ID needs to be mentioned
-                try {
-
-                    Message message = new MimeMessage(session);
-
-
-                    message.setFrom(new InternetAddress(from));
-
-
-                    message.setRecipients(Message.RecipientType.TO,
-                            InternetAddress.parse(to));
-
-
-                    message.setSubject("Testing Email");
-
-
-                    message.setText(notification);
-
-
-                    Transport.send(message);
-
-                    System.out.println("Sent message successfully....");
-                }catch (MessagingException e) {
-
-                    throw new RuntimeException(e);
-
-                }
-                return true;
-            }
+        if(emails==null || emails.size()==0)
+        {
+            return "{'Success':'true', 'Error': 'No email addresses passed in the list.'}";
         }
-        return false;*/
-        return "";
+
+        String from = "longswordNotification@gmail.com";//change accordingly
+        final String username = "longswordNotification";//change accordingly
+        final String password = "longsword";//change accordingly
+
+        //email through relay.jangosmtp.net
+        String host = "smtp.gmail.com";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.port", "587");
+
+        // Get the Session object.
+        Session session = Session.getInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                    }
+                });
+
+
+
+        for (int i = 0; i < emails.size(); i++) {
+
+            String to = emails.get(i);
+
+            try {
+
+                Message message = new MimeMessage(session);
+
+                message.setFrom(new InternetAddress(from));
+
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(to));
+
+                message.setSubject(subject);
+
+                message.setText(body);
+
+                Transport.send(message);
+
+                System.out.println("Sent message successfully....");
+            }catch (MessagingException e) {
+
+                return "{'Success':'true', 'Error': On user "+ to + e + "}";
+            }
+
+        }
+
+        return "{'Success':'true', 'Error':'None'";
     }
 
     /**
@@ -277,7 +266,7 @@ public class Notifications extends ActionBarActivity
      */
     public String SendTargetedEmail(String email, String subject, String body) {
 
-        String to = email;//"xyz@gmail.com";
+        String to = email;
         String from = "longswordNotification@gmail.com";
         final String username = "longswordNotification";
         final String password = "longsword";
@@ -303,19 +292,19 @@ public class Notifications extends ActionBarActivity
 
             Message message = new MimeMessage(session);
 
-            // Set From: header field of the header.
+
             message.setFrom(new InternetAddress(from));
 
-            // Set To: header field of the header.
+
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
-            // Set Subject: header field
+
             message.setSubject(subject);
 
-            //set message to passed message
+
             message.setText(body);
 
-            // Send message
+
             Transport.send(message);
 
             return "{'Success':'true', 'Error':'None'";
