@@ -207,9 +207,9 @@ public class Notifications extends ActionBarActivity
             return "{'Success':'true', 'Error': 'No email addresses passed in the list.'}";
         }
 
-        String from = "longswordNotification@gmail.com";//change accordingly
-        final String username = "longswordNotification";//change accordingly
-        final String password = "longsword";//change accordingly
+        String from = "longswordNotification@gmail.com";
+        final String username = "longswordNotification";
+        final String password = "longsword";
 
         //email through relay.jangosmtp.net
         String host = "smtp.gmail.com";
