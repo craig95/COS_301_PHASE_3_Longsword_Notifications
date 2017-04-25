@@ -11,15 +11,15 @@ public class TestJunit{
 
         String message = greeting + ' ' + username + ' ' +body;
         Notifications notify = new Notifications();
-        boolean success = notify.SendEmailToAll(message);
-        assertEquals(success,true);
+        String success = notify.SendTargetedEmail("u15029779@tuks.co.za", "Longsword Notification","Longsword notification Test");
+        assertEquals(success == "true",true);
     }
 
     public void testEmailAllSentFail(){
         String message = null;
         Notifications notify = new Notifications();
-        boolean success = notify.SendEmailToAll(message);
-        assertEquals(success,false);
+        String success = notify.SendEmailToAll(message);
+        assertEquals(success == "false",false);
     }
 
     public void testEmailTargettedSentSuccessful(){
@@ -29,15 +29,15 @@ public class TestJunit{
 
         String message = greeting + ' ' + username + ' ' +body;
         Notifications notify = new Notifications();
-        boolean success = notify.SendEmailToAll(message);
-        assertEquals(success,true);
+        String success = notify.SendEmailToAll(message);
+        assertEquals(success == "true",true);
     }
 
     public void testEmailTargetedSentFail(){
         String message = null;
         Notifications notify = new Notifications();
-        boolean success = notify.SendEmailToAll(message);
-        assertEquals(success,false);
+        String success = notify.SendEmailToAll(message);
+        assertEquals(success == "false",false);
     }
 
     public void testSmsAllSentSuccessful(){
@@ -47,15 +47,15 @@ public class TestJunit{
 
         String message = greeting + ' ' + username + ' ' +body;
         Notifications notify = new Notifications();
-        boolean success = notify.SendEmailToAll(message);
-        assertEquals(success,true);
+        String success = notify.SendEmailToAll(message);
+        assertEquals(success == "true",true);
     }
 
     public void testSmsAllSentFail(){
         String message = null;
         Notifications notify = new Notifications();
-        boolean success = notify.SendEmailToAll(message);
-        assertEquals(success,false);
+        String success = notify.SendEmailToAll(message);
+        assertEquals(success == "true",true);
     }
 
     public void testSmsTargettedSentSuccessful(){
@@ -65,14 +65,14 @@ public class TestJunit{
 
         String message = greeting + ' ' + username + ' ' +body;
         Notifications notify = new Notifications();
-        boolean success = notify.SendEmailToAll(message);
-        assertEquals(success,true);
+        String success = notify.SendEmailToAll(message);
+        assertEquals(success == "true",true);
     }
 
     public void testSmsTargetedSentFail(){
         String message = null;
         Notifications notify = new Notifications();
-        boolean success = notify.SendEmailToAll(message);
-        assertEquals(success,false);
+        String success = notify.SendEmailToAll(message);
+        assertEquals(success == "false",true);
     }
 }

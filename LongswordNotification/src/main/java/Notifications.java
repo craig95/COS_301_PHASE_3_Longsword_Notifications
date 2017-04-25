@@ -23,7 +23,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 
-public class Notifications extends ActionBarActivity
+public class Notifications
 {
 
     public class User{
@@ -133,15 +133,15 @@ public class Notifications extends ActionBarActivity
 
         private List<String> retrieveEmailOfManyUsers(List<String> usernames){
             userEmailAddresses.clear();
-            userEmailAddresses.add("oneemailaddress@gmail.com");
-            userEmailAddresses.add("twoemailaddresses@gmail.com");
+            userEmailAddresses.add("u15029779@tuks.co.za");
+            userEmailAddresses.add("");
             return userEmailAddresses;
         }
 
         private List<String> retrieveEmailOfAllUsers(){
             userEmailAddresses.clear();
-            userEmailAddresses.add("oneemailaddress@gmail.com");
-            userEmailAddresses.add("twoemailaddresses@gmail.com");
+            userEmailAddresses.add("u15029779@tuks.co.za");
+            userEmailAddresses.add("");
             return userEmailAddresses;
         }
 
@@ -347,38 +347,38 @@ public class Notifications extends ActionBarActivity
         * */
 
         //The code below is an example of the system
-        try{
-        /*
-        * String accountSid = "ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
-        * String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/account
-        * Twilio.init(accountSid, authToken);
-        *
-        * Message message = Message.creator(
-        *   new PhoneNumber("+15558881234"),  // To number
-        *   new PhoneNumber("+15559994321"),  // From number
-        *   "Hello world!"                    // SMS body
-        * ).create();
-        * System.out.println(message.getSid())
-        * */
-
-        // An example of how we would implement this in our system
-        /*
-        * List<User> users = Data.getAllUsers();
-        *
-        * for (int j = 0; j < Users.size(); j++)
-        * {
-        *   Message message = Message.creator(
-        *       new PhoneNumber(users.get(j).getCellPhoneNumber,  // To number
-        *       new PhoneNumber("+15559994321"),  // From number
-        *       notification                   // SMS body
-        *   ).create();
-        * }
-        *
-        * */
-            return true;
-        }catch(Exception e){
-            return false;
-        }
+//        try{
+//        /*
+//        * String accountSid = "ACXXXXXX"; // Your Account SID from www.twilio.com/user/account
+//        * String authToken = "XXXXXXXX"; // Your Auth Token from www.twilio.com/user/account
+//        * Twilio.init(accountSid, authToken);
+//        *
+//        * Message message = Message.creator(
+//        *   new PhoneNumber("+15558881234"),  // To number
+//        *   new PhoneNumber("+15559994321"),  // From number
+//        *   "Hello world!"                    // SMS body
+//        * ).create();
+//        * System.out.println(message.getSid())
+//        * */
+//
+//        // An example of how we would implement this in our system
+//        /*
+//        * List<User> users = Data.getAllUsers();
+//        *
+//        * for (int j = 0; j < Users.size(); j++)
+//        * {
+//        *   Message message = Message.creator(
+//        *       new PhoneNumber(users.get(j).getCellPhoneNumber,  // To number
+//        *       new PhoneNumber("+15559994321"),  // From number
+//        *       notification                   // SMS body
+//        *   ).create();
+//        * }
+//        *
+//        * */
+//            return true;
+//        }catch(Exception e){
+//            return false;
+//        }
     }
 
     /**
