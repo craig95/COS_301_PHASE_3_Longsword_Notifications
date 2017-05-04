@@ -85,7 +85,9 @@
 The email tests concluded that the system is able to send 100 emails in 8.02 minutes.
 The system is therefore inefficient in its real time processing as it unable to send batch emails and starts a new SMTP session for every email sent rather than opening up one session for all emails that need to be sent, which is a poor utilization of resources. The system is effective however, as it is able to send an email but ineffective when sending smses or push notifications.
 
-    
+ Quality:
+The system is reliable in the sense that it is able to send emails. However it is unreliable in the sense that it is unable to send multiple emails in a timely manner as required and returns true when the sms and push notifications are tested without them actually doing anything.
+   
     \begin{sidewaystable}
         \centering
         \caption{Test Push Notification}
