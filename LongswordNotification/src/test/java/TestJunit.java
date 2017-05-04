@@ -2,45 +2,15 @@ import org.junit.Test;
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 import static org.junit.Assert.assertEquals;
-import com.sun.nio.sctp.NotificationHandler;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
-import java.util.ArrayList;
 
 public class TestJunit{
-    @Test
 
+    @Test
     public void testSingleEmail(){
-        String greeting = "Good Day";
-        String username = "John Wick";
-        String body = "this is to fest if this email sent.";
-        //for(int i =0; i<1000; i++){
-            String message = greeting + ' ' + username + ' ' + body;
-            Notifications notify = new Notifications();
-            String success = notify.SendTargetedEmail("gladius.notification@gmail.com", "Longsword Notification", "Longsword notification Test");
-            try {
-                assertEquals("true", success.substring(12, 16));
-                if ("true".compareTo(success.substring(12, 16)) == 0) {
-                    assertTrue("Successfully sent single email.", true);
-                } else {
-                    fail("Failed to send single email.");
-                }
-            } catch (Exception e) {
-                fail("Failed to send single email.");
-            }
-       // }
-    }
-
-    @Test
-    public void testSingleEmailBatch(){
-        String greeting = "Good Day";
-        String username = "John Wick";
-        String body = "this is to fest if this email sent.";
-        for(int i =0; i<100; i++){
-        String message = greeting + ' ' + username + ' ' + body;
+        String message = "Longsword Notification test.";
         Notifications notify = new Notifications();
-        String success = notify.SendTargetedEmail("gladius.notification@gmail.com", "Longsword Notification", "Longsword notification Test");
+        String success = notify.SendTargetedEmail("u15029779@tuks.co.za", "Longsword Notification", message);
         try {
             assertEquals("true", success.substring(12, 16));
             if ("true".compareTo(success.substring(12, 16)) == 0) {
@@ -50,61 +20,51 @@ public class TestJunit{
             }
         } catch (Exception e) {
             fail("Failed to send single email.");
-        }
-        }
+            }
     }
 
-
     @Test
-    public void testSingleInvalidEmail(){
-        String greeting = "Good Day";
-        String username = "John Wick";
-        String body = "this is to fest if this email sent.";
-
-        String message = greeting + ' ' + username + ' ' +body;
+    public void testSingleEmailInvalidAddress(){
+        String message = "Longsword Notification test.";
         Notifications notify = new Notifications();
-        String success = notify.SendTargetedEmail("u15029779@", "Longsword Notification","Longsword notification Test");
+        String success = notify.SendTargetedEmail("u15029779@", "Longsword Notification", message);
         try {
             assertEquals("false", success.substring(12,16));
             if ("false" == success.substring(12,16)) {
-                assertTrue("Successfully sent incorrect email address email.", true);
+                assertTrue("Invalid email address, email was not send.", true);
             } else {
-                fail("Failed to sent incorrect email address email.");
+                fail("Invalid email was somehow successfully sent");
             }
         } catch (Exception e) {
-            fail("Failed to sent incorrect email address email.");
+            fail("Invalid email was somehow successfully sent");
         }
     }
 
     @Test
-    public void testSingleIEmptyEmail(){
-        String greeting = "Good Day";
-        String username = "John Wick";
-        String body = "this is to fest if this email sent.";
-
-        String message = greeting + ' ' + username + ' ' +body;
+    public void testSingleEmailIEmptyBody(){
+        String message = "";
         Notifications notify = new Notifications();
-        String success = notify.SendTargetedEmail("u15029779@tuks.co.za", "Longsword Notification","");
+        String success = notify.SendTargetedEmail("u15029779@tuks.co.za", "Longsword Notification", message);
         try {
             assertEquals("false", success.substring(12,16));
             if ("false" == success.substring(12,16)) {
-                assertTrue("Successfully sent empty email.", true);
+                assertTrue("Empty body validation succeeded. Email was not sent.", true);
             } else {
-                fail("Failed to send empty email.");
+                fail("Empty body validation failed. Email was sent.");
             }
         } catch (Exception e) {
-            fail("Failed to send empty  email.");
+            fail("Empty body validation failed. Email was sent.");
         }
     }
 
     @Test
-    public void testEmailAllSentPass(){
+    public void testEmailAll(){
         String message = "Testing Email to All";
         Notifications notify = new Notifications();
         String success = notify.SendEmailToAll(message);
         try {
             assertEquals("true", success.substring(12,16));
-            if ("false" == success.substring(12,16)) {
+            if ("true" == success.substring(12,16)) {
                 assertTrue("Successfully sent multiple emails.", true);
             } else {
                 fail("Failed to send multiple emails.");
@@ -115,212 +75,235 @@ public class TestJunit{
     }
 
     @Test
-    public void testEmailAllSentFail(){
-        String message = "Testing Email to All";
-        Notifications notify = new Notifications();
-        String success = notify.SendEmailToAll(message);
-        try {
-            assertEquals("false", success.substring(12,16));
-            if ("false" == success.substring(12,16)) {
-                assertTrue("Successfully sent multiple emails.", true);
-            } else {
-                fail("Failed to send multiple emails.");
-            }
-        } catch (Exception e) {
-            fail("Failed to send multiple emails.");
-        }
-    }
-
-    @Test
-    public void testEmptyEmailAllSentFail(){
+    public void testEmailAllEmptyBody(){
         String message = "";
         Notifications notify = new Notifications();
         String success = notify.SendEmailToAll(message);
         try {
             assertEquals("false", success.substring(12,16));
             if ("false" == success.substring(12,16)) {
-                assertTrue("Successfully sent multiple emails.", true);
+                assertTrue("Empty body validation succeeded. Email was not sent.", true);
             } else {
-                fail("Failed to send multiple emails.");
+                fail("Empty body validation failed. Email was sent.");
             }
         } catch (Exception e) {
-            fail("Failed to send multiple emails.");
+            fail("Empty body validation failed. Email was sent.");
         }
     }
 
     @Test
-    public void testEmailTargettedSentSuccessful(){
-        String greeting = "Good Day";
-        String username = "John Wick";
-        String body = "This email is a test to see if you are awesome";
-
-        String message = greeting + ' ' + username + ' ' +body;
+    public void testSingleSMS(){
+        String message = "SMS Test";
         Notifications notify = new Notifications();
-        String success = notify.SendEmailToAll(message);
+        boolean success = notify.SendTargetedSms(null, message);
         try {
-            assertEquals("true", success.substring(12,16));
-            if ("true" == success.substring(12,16)) {
-                assertTrue("Successfully sent targeted email.", true);
+            assertEquals(true, success);
+            if (true == success) {
+                assertTrue("Successfully sent single SMS.", true);
             } else {
-                fail("Failed to send targeted email");
+                fail("Failed to send single SMS");
             }
         } catch (Exception e) {
-            fail("Failed to send targeted email");
+            fail("Failed to send single SMS");
         }
     }
 
     @Test
-    public void testNoAddressEmailTargettedSentSuccessful(){
-        String greeting = "Good Day";
-        String username = "";
-        String body = "This email is a test to see if you are awesome";
-
-        String message = greeting + ' ' + username + ' ' +body;
+    public void testSingleSMSInvalidUser(){
+        String message = "SMS Test";
         Notifications notify = new Notifications();
-        String success = notify.SendEmailToAll(message);
+        boolean success = notify.SendTargetedSms(null, message);
         try {
-            assertEquals("false", success.substring(12,16));
-            if ("true" == success.substring(12,16)) {
-                assertTrue("Successfully sent targeted email.", true);
+            assertEquals(false, success);
+            if (false == success) {
+                assertTrue("Invalid user, SMS was not send.", true);
             } else {
-                fail("Failed to send targeted email");
+                fail("SMS was somehow successfully sent to a invalid user.");
             }
         } catch (Exception e) {
-            fail("Failed to send targeted email");
+            fail("SMS was somehow successfully sent to a invalid user.");
         }
     }
 
     @Test
-    public void testNoBodyEmailTargettedSentSuccessful(){
-        String greeting = "Good Day";
-        String username = "John Wick";
-        String body ="";
-
-        String message = greeting + ' ' + username + ' ' +body;
+    public void testSingleSMSEmptyMessage(){
+        String message = "";
         Notifications notify = new Notifications();
-        String success = notify.SendEmailToAll(message);
+        boolean success = notify.SendTargetedSms(null, message);
         try {
-            assertEquals("false", success.substring(12,16));
-            if ("true" == success.substring(12,16)) {
-                assertTrue("Successfully sent targeted email.", true);
+            assertEquals(false, success);
+            if (false == success) {
+                assertTrue("Empty message validation succeeded. SMS was not sent.", true);
             } else {
-                fail("Failed to send targeted email");
+                fail("Empty message validation failed. SMS was sent.");
             }
         } catch (Exception e) {
-            fail("Failed to send targeted email");
+            fail("Empty message validation failed. SMS was sent.");
         }
     }
 
     @Test
-    public void testEmailTargetedSentFail(){
-        String message = null;
+    public void testSMSAll(){
+        String message = "Testing SMS to all";
         Notifications notify = new Notifications();
-        String success = notify.SendEmailToAll(message);
+        boolean success = notify.SendTargetedSms(null, message);
         try {
-            assertEquals("false", success.substring(12,16));
-            if ("true" == success.substring(12,16)) {
-                assertTrue("Successfully sent targeted email.", true);
+            assertEquals(true, success);
+            if (true == success) {
+                assertTrue("Successfully sent multiple SMS messages.", true);
             } else {
-                fail("Failed to send targeted email");
+                fail("Failed to send multiple SMS messages.");
             }
         } catch (Exception e) {
-            fail("Failed to send targeted email");
+            fail("Failed to send multiple SMS messages.");
         }
     }
 
-    public void testSmsAllSentSuccessful(){
+
+    @Test
+    public void testSMSAllEmptyMessage(){
+        String message = "";
+        Notifications notify = new Notifications();
+        boolean success = notify.SendTargetedSms(null, message);
+        try {
+            assertEquals(false, success);
+            if (false == success) {
+                assertTrue("Empty message validation succeeded. SMS messages were not sent.", true);
+            } else {
+                fail("Empty message validation failed. SMS messages were sent.");
+            }
+        } catch (Exception e) {
+            fail("Empty message validation failed. SMS messages were sent.");
+        }
+    }
+
+    @Test
+    public void testSinglePushNotification(){
+        String message = "Push Test";
+        Notifications notify = new Notifications();
+        boolean success = notify.SendTargetedSms(null, message);
+        try {
+            assertEquals(true, success);
+            if (true == success) {
+                assertTrue("Successfully sent single Push Notification.", true);
+            } else {
+                fail("Failed to send single Push Notification");
+            }
+        } catch (Exception e) {
+            fail("Failed to send single Push Notification");
+        }
+    }
+
+    @Test
+    public void testSinglePushNotificationInvalidUser(){
+        String message = "Push Test";
+        Notifications notify = new Notifications();
+        boolean success = notify.SendTargetedSms(null, message);
+        try {
+            assertEquals(false, success);
+            if (false == success) {
+                assertTrue("Invalid user, Push Notification was not send.", true);
+            } else {
+                fail("Push Notification was somehow successfully sent to a invalid user.");
+            }
+        } catch (Exception e) {
+            fail("Push Notification was somehow successfully sent to a invalid user.");
+        }
+    }
+
+    @Test
+    public void testSinglePushNotificationEmptyMessage(){
+        String message = "";
+        Notifications notify = new Notifications();
+        boolean success = notify.SendTargetedSms(null, message);
+        try {
+            assertEquals(false, success);
+            if (false == success) {
+                assertTrue("Empty message validation succeeded. Push Notification was not sent.", true);
+            } else {
+                fail("Empty message validation failed. Push Notification was sent.");
+            }
+        } catch (Exception e) {
+            fail("Empty message validation failed. Push Notification was sent.");
+        }
+    }
+
+    @Test
+    public void testPushNotificationAll(){
+        String message = "Testing Push to all";
+        Notifications notify = new Notifications();
+        boolean success = notify.SendTargetedSms(null, message);
+        try {
+            assertEquals(true, success);
+            if (true == success) {
+                assertTrue("Successfully sent multiple Push Notifications.", true);
+            } else {
+                fail("Failed to send multiple Push Notification.");
+            }
+        } catch (Exception e) {
+            fail("Failed to send multiple Push Notification.");
+        }
+    }
+
+
+    @Test
+    public void testPushNotificationAllEmptyMessage(){
+        String message = "";
+        Notifications notify = new Notifications();
+        boolean success = notify.SendTargetedSms(null, message);
+        try {
+            assertEquals(false, success);
+            if (false == success) {
+                assertTrue("Empty message validation succeeded. Push Notifications were not sent.", true);
+            } else {
+                fail("Empty message validation failed. Push Notifications were sent.");
+            }
+        } catch (Exception e) {
+            fail("Empty message validation failed. Push Notifications were sent.");
+        }
+    }
+
+    @Test
+    public void testEmailBatch100(){
         String greeting = "Good Day";
         String username = "John Wick";
-        String body = "This email is a test to see if you are awesome";
-
-        String message = greeting + ' ' + username + ' ' +body;
-        Notifications notify = new Notifications();
-        String success = notify.SendEmailToAll(message);
-        try {
-            assertEquals("true", success.substring(12,16));
-            if ("true" == success.substring(12,16)) {
-                assertTrue("Successfully sent targeted SMS to all.", true);
-            } else {
-                fail("Failed to send targeted SMS to all.");
+        String body = "this is to fest if this email sent.";
+        for(int i =0; i<100; i++){
+            String message = greeting + ' ' + username + ' ' + body;
+            Notifications notify = new Notifications();
+            String success = notify.SendTargetedEmail("gladius.notification@gmail.com", "Longsword Notification", "Longsword notification Test");
+            try {
+                assertEquals("true", success.substring(12, 16));
+                if ("true".compareTo(success.substring(12, 16)) == 0) {
+                    assertTrue("Successfully sent batch emails.", true);
+                } else {
+                    fail("Failed to send batch emails.");
+                }
+            } catch (Exception e) {
+                fail("Failed to send batch emails.");
             }
-        } catch (Exception e) {
-            fail("Failed to send targeted SMS to all.");
         }
     }
 
-    public void testEmptySmsAllSentFail(){
-        String greeting = "";
-        String username = "";
-        String body = "";
-
-        String message = greeting + ' ' + username + ' ' +body;
-        Notifications notify = new Notifications();
-        String success = notify.SendEmailToAll(message);
-        try {
-            assertEquals("fail", success.substring(12,16));
-            if ("true" == success.substring(12,16)) {
-                assertTrue("Successfully sent targeted SMS to all.", true);
-            } else {
-                fail("Failed to send targeted SMS to all");
-            }
-        } catch (Exception e) {
-            fail("Failed to send targeted SMS to all");
-        }
-    }
-
-    public void testSmsTargettedSentSuccessful(){
+    @Test
+    public void testEmailBatch50(){
         String greeting = "Good Day";
         String username = "John Wick";
-        String body = "This email is a test to see if you are awesome";
-
-        String message = greeting + ' ' + username + ' ' +body;
-        Notifications notify = new Notifications();
-        String success = notify.SendEmailToAll(message);
-        try {
-            assertEquals("true", success.substring(12,16));
-            if ("true" == success.substring(12,16)) {
-                assertTrue("Successfully sent targeted SMS.", true);
-            } else {
-                fail("Failed to send targeted SMS");
+        String body = "this is to fest if this email sent.";
+        for(int i =0; i<50; i++){
+            String message = greeting + ' ' + username + ' ' + body;
+            Notifications notify = new Notifications();
+            String success = notify.SendTargetedEmail("gladius.notification@gmail.com", "Longsword Notification", "Longsword notification Test");
+            try {
+                assertEquals("true", success.substring(12, 16));
+                if ("true".compareTo(success.substring(12, 16)) == 0) {
+                    assertTrue("Successfully sent batch emails.", true);
+                } else {
+                    fail("Failed to send batch emails.");
+                }
+            } catch (Exception e) {
+                fail("Failed to send batch emails.");
             }
-        } catch (Exception e) {
-            fail("Failed to send targeted SMS");
-        }
-    }
-
-    public void testEmptySmsTargettedSentSuccessful(){
-        String greeting ="";
-        String username ="";
-        String body="";
-
-        String message = greeting + ' ' + username + ' ' +body;
-        Notifications notify = new Notifications();
-        String success = notify.SendEmailToAll(message);
-        try {
-            assertEquals("false", success.substring(12,16));
-            if ("true" == success.substring(12,16)) {
-                assertTrue("Successfully sent targeted SMS.", true);
-            } else {
-                fail("Failed to send targeted SMS");
-            }
-        } catch (Exception e) {
-            fail("Failed to send targeted SMS");
-        }
-    }
-
-    public void testSmsTargetedSentFail(){
-        String message = null;
-        Notifications notify = new Notifications();
-        String success = notify.SendEmailToAll(message);
-        try {
-            assertEquals("fail", success.substring(12,16));
-            if ("true" == success.substring(12,16)) {
-                assertTrue("Successfully sent targeted SMS.", true);
-            } else {
-                fail("Failed to send targeted SMS");
-            }
-        } catch (Exception e) {
-            fail("Failed to send targeted SMS");
         }
     }
 }
