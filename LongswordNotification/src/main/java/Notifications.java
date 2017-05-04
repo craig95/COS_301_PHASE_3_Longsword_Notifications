@@ -318,7 +318,7 @@ public class Notifications
             // Send message
             Transport.send(message);
 
-            return "{'Success':'true', 'Error':'None'";
+            return "{'Success':'true', 'Error':'None'}";
         } catch (MessagingException e) {
 
             return "{'Success':'true', 'Error':"+ e + "}";
